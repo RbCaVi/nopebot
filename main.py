@@ -21,8 +21,10 @@ class MyClient(discord.Client):
     def noped(self, message):
         if (message.guild.id, message.channel.id, message.author.id, len(message.content)) == (1203529312016400435, 1228031264565497898, 784682603336302634, 3):
             return True
-        if '<@953758541666209852>' in message.content:
-            return True
+        #if len(message.content) == 3 and message.content[0] == message.content[2] and message.content[0] != message.content[1]:
+        #    return True
+        #if '<@953758541666209852>' in message.content:
+        #    return True
         return False
 
 def log(f, *message):
