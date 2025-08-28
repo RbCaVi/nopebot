@@ -3,6 +3,10 @@ import datetime
 import os
 import sys
 
+trusted = [
+    953758541666209852, # rbcavi (me)
+]
+
 class MyClient(discord.Client):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -13,6 +17,17 @@ class MyClient(discord.Client):
 
     async def on_message(self, message):
         print(message.guild.id, message.channel.id, message.author.id, message.content)
+        if (message.guild.id, message.channel.id) == (1203529312016400435, 1409564935289049120):
+            # we don't allow messages in #bot-killer
+            if message.author.id not in trusted:
+                content = message.content
+                author = message.author
+                await message.author.send('come again but don\'t post in #bot-killer next time')
+                await message.author.kick(reason = 'nope you made the fatal mistake <3')
+                def blocked(m):
+                    return m.content == content and m.author == author
+                for channel in message.guild.channels:
+                    await channel.purge(limit = 100, check = blocked, reason = 'bro is dead to us')
         if self.noped(message):
             log(logfile, f'yeeting a message: {repr(message.content)}')
             await message.delete()
