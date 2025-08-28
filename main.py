@@ -27,6 +27,11 @@ class MyClient(discord.Client):
                 def blocked(m):
                     return m.content == content and m.author == author
                 for channel in message.guild.channels:
+                    if isinstance(channel, discord.CategoryChannel):
+                        continue
+                    if isinstance(channel, discord.ForumChannel):
+                        continue
+                    print(repr(channel))
                     await channel.purge(limit = 100, check = blocked, reason = 'bro is dead to us')
         if self.noped(message):
             log(logfile, f'yeeting a message: {repr(message.content)}')
