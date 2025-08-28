@@ -5,6 +5,11 @@ import sys
 
 trusted = [
     953758541666209852, # rbcavi (me)
+    971861088113152041, # tanner07
+    784682603336302634, # 1ue999
+    533265248988168222, # benro
+    611986129230495756, # kokice
+    697801071208300574, # sear
 ]
 
 class MyClient(discord.Client):
