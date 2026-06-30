@@ -3,6 +3,10 @@ import datetime
 import os
 import sys
 
+noped_mssgs = {
+    "nope": "fuck"
+}
+
 trusted = [
     953758541666209852, # rbcavi (me)
     971861088113152041, # tanner07
@@ -41,10 +45,12 @@ class MyClient(discord.Client):
         if self.noped(message):
             log(logfile, f'yeeting a message: {repr(message.content)}')
             await message.delete()
-            await message.channel.send("nope")
+            await message.channel.send(noped_mssgs.get(message.content.lower(), "nope"))
     
     def noped(self, message):
-        if (message.guild.id, message.channel.id, len(message.content)) == (1203529312016400435, 1228031264565497898, 3):
+        if (message.guild.id, message.channel.id) != (1203529312016400435, 1228031264565497898):
+            return False
+        if len(message.content) == 3:
             return True
         #if message.content == 'nope':
         #    return True
@@ -54,6 +60,8 @@ class MyClient(discord.Client):
         #    return True
         #if '<@953758541666209852>' in message.content:
         #    return True
+        if noped_mssgs.get(message.content.lower(), None):
+            return True
         return False
 
 def log(f, *message):
