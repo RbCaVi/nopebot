@@ -43,9 +43,10 @@ class MyClient(discord.Client):
                     print(repr(channel))
                     await channel.purge(limit = 100, check = blocked, reason = 'bro is dead to us')
         if self.noped(message):
-            log(logfile, f'yeeting a message: {repr(message.content)}')
+            content = message.content
+            log(logfile, f'yeeting a message: {repr(content)}')
             await message.delete()
-            await message.channel.send(noped_mssgs.get(message.content.lower(), "nope"))
+            await message.channel.send(noped_mssgs.get(content.lower(), "nope"))
     
     def noped(self, message):
         if (message.guild.id, message.channel.id) != (1203529312016400435, 1228031264565497898):
