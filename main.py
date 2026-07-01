@@ -48,6 +48,9 @@ class MyClient(discord.Client):
             await message.channel.send(noped_mssgs.get(message.content.lower(), "nope"))
     
     def noped(self, message):
+        if message.author.bot:
+            return False
+
         if (message.guild.id, message.channel.id) != (1203529312016400435, 1228031264565497898):
             return False
         if len(message.content) == 3:
